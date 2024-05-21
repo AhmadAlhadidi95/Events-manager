@@ -6,7 +6,7 @@ function setMinDate() {
 
     theDate.min = todayDate
 
-    theDate.oninput = () => {theDate.value < todayDate ? theDate.value = todayDate : null}
+    theDate.onchange = () => {if (theDate.value < todayDate) theDate.value = todayDate}
 
 }
 setMinDate()
@@ -73,16 +73,18 @@ function displayEvents() {
 
     events.forEach((event, i) => {
 
-        let nowTimeWithMillisecond = new Date().getTime()
-        let leftTime = event.eventTime - nowTimeWithMillisecond
+        let now = new Date().getTime()
+        let leftTime = event.eventTime - now
 
-        let days = Math.floor(leftTime / (1000 * 60 * 60 * 24))
-        let hours = Math.floor(leftTime % (1000 * 60 * 60 * 24) / (1000 * 60 * 60))
-        let minutes = Math.floor(leftTime % (1000 * 60 * 60) / (1000 * 60))
-        let seconds = Math.floor(leftTime % (1000 * 60) / 1000)
+        let days = Math.floor(leftTime / (1000 * 60 * 60 * 24)) // Get the days
+        let hours = Math.floor((leftTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) // Get the hours
+        let minutes = Math.floor((leftTime % (1000 * 60 * 60)) / (1000 * 60)) // Get the minutes
+        let seconds = Math.floor((leftTime % (1000 * 60)) / 1000) // Get the seconds
+
+        let countDown
+
+        days >= 0 ? countDown = `${days}d ${hours}h ${minutes}m ${seconds}s` : countDown = `Today`
         
-        let countDown = `${days}d ${hours}h ${minutes}m ${seconds}s`
-
         eventsBox.innerHTML += `
             <div class="event">
                 <h3>${event.eventName}</h3>
