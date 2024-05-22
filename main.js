@@ -6,7 +6,7 @@ function setMinDate() {
 
     theDate.setAttribute("min", `${todayDate}`)
 
-    theDate.onclick = () => {if (theDate.value < todayDate) theDate.value = todayDate}
+    theDate.oninput = () => {if (theDate.value < todayDate) theDate.value = todayDate}
 
 }
 setMinDate()
