@@ -4,9 +4,9 @@ function setMinDate() {
 
     let theDate = document.getElementById("date")
 
-    theDate.min = todayDate
+    theDate.setAttribute("placeholder", `Minimum date is Today!`)
 
-    theDate.onchange = () => {if (theDate.value < todayDate) theDate.value = todayDate}
+    theDate.onclick = () => {if (theDate.value < todayDate) theDate.value = todayDate}
 
 }
 setMinDate()
@@ -83,7 +83,13 @@ function displayEvents() {
 
         let countDown
 
-        days >= 0 ? countDown = `${days}d ${hours}h ${minutes}m ${seconds}s` : countDown = `Today`
+        if (days >= 0) {
+            countDown = `${days}d ${hours}h ${minutes}m ${seconds}s`
+        } else if (days === -1) {
+            countDown = `Today`
+        } else {
+            countDown = `This is too late!`
+        }
         
         eventsBox.innerHTML += `
             <div class="event">
