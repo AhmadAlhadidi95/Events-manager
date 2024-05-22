@@ -4,7 +4,7 @@ function setMinDate() {
 
     let theDate = document.getElementById("date")
 
-    theDate.setAttribute("placeholder", `Minimum date is Today!`)
+    theDate.setAttribute("min", `${todayDate}`)
 
     theDate.onclick = () => {if (theDate.value < todayDate) theDate.value = todayDate}
 
